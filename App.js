@@ -42,7 +42,6 @@ const deleteItem = (item) => {    //viittaus ja mitä poistetaan
 
 }
 
- 
 
 useEffect(() => 
 {const itemsRef = ref(database, 'ostot/');  
@@ -58,41 +57,32 @@ onValue(itemsRef, (snapshot) => {
   }, []);
 
 
-  const listSeparator = () => {
-    return (
-      <View
-        style={{
-          height: 5,
-          width: "80%",
-          backgroundColor: "#fff",
-          marginLeft: "10%"
-        }}
-      />
-    );
-  };
-
+ 
   return (
     <View style={styles.container}>
      
-    <Header  leftComponent={{ icon: 'menu'}}  centerComponent={{ text: 'SHOPPING LIST' }} 
-               rightComponent={{ icon: 'home'}}/>
+    <Header    centerComponent={{ text: 'SHOPPING LIST' }} 
+             />
     <Input placeholder='Product' label="Product" onChangeText={(product) => setProduct(product)} style={styles.textBoxes}  />  
    
     <Input placeholder='Amount' label="Amount" onChangeText={(amount) => setAmount(amount)} style={styles.textBoxes}/>      
-    <View style={{width : "60%", marginBottom:30, marginLeft:40}}>
+    <View style={{ marginBottom:30,  alignItems:'center'}}>
     <Button icon={{name: 'save'}} title="Save"  onPress={saveItem} > </Button>
     </View >
+    <View>
     <FlatList 
           data={ostos} 
           renderItem={({item}) => 
             <ListItem bottomDivider  >
-              <ListItem.Title>{item.product}     {item.amount}</ListItem.Title>
-              <Icon raised name='delete' color='#f50'  onPress={() => deleteItem(item.key)} />
+              <ListItem.Content>
+              <ListItem.Title>{item.product}  {item.amount} </ListItem.Title>
+              </ListItem.Content>
+                <Icon  raised name='delete' color='#f50'  onPress={() => deleteItem(item.key)} />
             </ListItem  > 
            } 
            keyExtractor={item => item.id}    
         />     
-      
+    </View>  
       </View>
     );
   }
@@ -103,45 +93,8 @@ const styles = StyleSheet.create({
     marginTop:30,
     flex: 1,
     padding:5,
-    
-  },
-  subtitleView: {
-    flexDirection: 'row',
-    paddingLeft: 10,
-    paddingTop: 5
-  },
- listcontainer: {
-  flexDirection: 'row',
-  backgroundColor: 'grey',
-  alignItems: 'center'
- },
- text2: {
-  flex:1,
-  fontSize:15,
-  margin:5,
- },
- text3: {
-  flex:1,
-  flexDirection: 'row',
-  margin:10,
-  padding:10,
-  marginLeft:0,
- },
- button: {
-  marginRight:5,
-  
-  margin:100,
-
- },  
- button2: {
-  marginRight:5,
+    alignContent:'center',
      
-  margin:10,
-
- },  
- cardstyle: {
-  margin:0,
-  backgroundColor:'#fff',
-  borderRadius:10,
- },  
+  },
+  
 });
